@@ -1,6 +1,9 @@
 # Target folder
 target/
 
+# Settings folder
+.settings/
+
 # Compiled class file
 *.class
 
