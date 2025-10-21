@@ -1,5 +1,8 @@
 all: build run
 
+fmt:
+	mvn formatter:format
+
 build:
 	mvn package
 
