@@ -141,10 +141,10 @@ public class HuntAndKill {
   }
 
   public int getWidth() {
-    return width - 1;
+    return width;
   }
 
   public int getHeight() {
-    return height - 1;
+    return height;
   }
 }
