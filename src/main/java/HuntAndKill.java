@@ -5,9 +5,9 @@ import java.util.Arrays;
 
 public class HuntAndKill {
 
-  public int width;
-  public int height;
-  public int[][] maze;
+  private int width;
+  private int height;
+  private int[][] maze;
 
   HuntAndKill(int width, int height) throws Exception {
     width -= width % 2;
@@ -134,5 +134,17 @@ public class HuntAndKill {
       string += "\n" + Arrays.toString(rows);
     }
     return string.substring(1);
+  }
+
+  public int[][] getMaze() {
+    return maze;
+  }
+
+  public int getWidth() {
+    return width - 1;
+  }
+
+  public int getHeight() {
+    return height - 1;
   }
 }
