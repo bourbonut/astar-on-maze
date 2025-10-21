@@ -34,8 +34,19 @@ public class AStar {
         this.setBlocks(maze, rows, cols);
     }
 
-    AStar(HuntAndKill mazeObj, Node start, Node target) {
-        this(mazeObj, start, target, DEFAULT_HV_COST, DEFAULT_DIAGONAL_COST);
+    AStar(HuntAndKill mazeObj) {
+        int rows = mazeObj.getHeight();
+        int cols = mazeObj.getWidth();
+        int[][] maze = mazeObj.getMaze();
+        this.hvCost = DEFAULT_HV_COST;
+        // this.diagonalCost = diagonalCost;
+        this.start = new Node(0, 1);
+        this.target = new Node(rows - 1, cols - 2);
+        this.searchArea = new Node[rows][cols];
+        this.closedSet = new HashSet<>();
+        this.openList = new PriorityQueue<Node>((a, b) -> Integer.compare(a.getFinalCost(), b.getFinalCost()));
+        this.setNodes();
+        this.setBlocks(maze, rows, cols);
     }
 
     private void setNodes() {
@@ -91,7 +102,7 @@ public class AStar {
     private void checkNode(Node currentNode, int col, int row, int cost) {
         Node adjacentNode = searchArea[row][col];
         if (!adjacentNode.isBlock() && !closedSet.contains(adjacentNode)) {
-            if (openList.contains(adjacentNode)) {
+            if (!openList.contains(adjacentNode)) {
                 adjacentNode.setData(currentNode, cost);
                 openList.add(adjacentNode);
             } else {

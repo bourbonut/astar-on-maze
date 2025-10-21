@@ -78,6 +78,7 @@ public class Node {
 
     @Override
     public String toString() {
-        return String.valueOf(this.cost);
+        String formatString = "Node{'row': %d, 'col': %d, 'isBlock': %b, 'heuristicValue': %d, 'cost': %d, 'finalCost': %d}";
+        return String.format(formatString, row, col, isBlock, heuristicValue, cost, finalCost);
     }
 }
