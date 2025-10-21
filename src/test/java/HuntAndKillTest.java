@@ -6,12 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 public class HuntAndKillTest {
 
     @ParameterizedTest
-    @CsvSource({
-        "10, 10",
-        "10, 11",
-        "11, 10",
-        "11, 11",
-    })
+    @CsvSource({ "10, 10", "10, 11", "11, 10", "11, 11", })
     public void widthAndHeight(int width, int height) throws Exception {
         HuntAndKill obj = new HuntAndKill(width, height);
         assertEquals(width - width % 2 + 1, obj.getWidth());
@@ -19,12 +14,7 @@ public class HuntAndKillTest {
     }
 
     @ParameterizedTest
-    @CsvSource({
-        "10, 10",
-        "10, 11",
-        "11, 10",
-        "11, 11",
-    })
+    @CsvSource({ "10, 10", "10, 11", "11, 10", "11, 11", })
     public void mazeDims(int width, int height) throws Exception {
         HuntAndKill obj = new HuntAndKill(width, height);
         int[][] maze = obj.getMaze();
@@ -33,13 +23,7 @@ public class HuntAndKillTest {
     }
 
     @ParameterizedTest
-    @CsvSource({
-        "5, 5",
-        "10, 10",
-        "25, 25",
-        "100, 100",
-        "250, 250",
-    })
+    @CsvSource({ "5, 5", "10, 10", "25, 25", "100, 100", "250, 250", })
     public void openingAndEnding(int width, int height) throws Exception {
         HuntAndKill obj = new HuntAndKill(width, height);
         int[][] maze = obj.getMaze();
