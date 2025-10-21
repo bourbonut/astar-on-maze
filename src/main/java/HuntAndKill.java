@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 public class HuntAndKill {
 
+  public int width;
+  public int height;
   public int[][] maze;
 
   HuntAndKill(int width, int height) throws Exception {
@@ -13,12 +15,12 @@ public class HuntAndKill {
 
     width++;
     height++;
+    this.width = width;
+    this.height = height;
 
     maze = new int[height][width];
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        maze[i][j] = 1;
-      }
+    for (int[] row : maze) {
+      Arrays.fill(row, 1);
     }
 
     // Opening at top - start of maze
@@ -45,7 +47,8 @@ public class HuntAndKill {
       }
     }
 
-    maze[height - 2][width - 1] = 0;
+    // Opening at bottom - end of maze
+    maze[height - 1][width - 2] = 0;
   }
 
   private ArrayList<int[]> neighbors(int ic, int jc) {
@@ -60,14 +63,13 @@ public class HuntAndKill {
       int value = Math.floorDiv(i, 2) * 2;
       n[i % 2] += value != 0 ? value: -2;
       if (
-          n[0] < maze.length &&
-          n[1] < maze[0].length &&
+          n[0] < height &&
+          n[1] < width &&
           n[0] > 0 &&
-          n[1] > 0
+          n[1] > 0 &&
+          maze[n[0]][n[1]] == 1
       ) {
-        if (maze[n[0]][n[1]] == 1) {
-          final_value.add(n);
-        }
+        final_value.add(n);
       }
     }
     return final_value;
@@ -85,12 +87,11 @@ public class HuntAndKill {
       int value = Math.floorDiv(i, 2) * 2;
       n[i % 2] += value != 0 ? value: -2;
       if (
-          n[0] < maze.length &&
-          n[1] < maze[0].length &&
+          n[0] < height &&
+          n[1] < width &&
           n[0] > 0 &&
           n[1] > 0
-      )
-      {
+      ) {
         final_value.add(n);
       }
     }
@@ -98,8 +99,8 @@ public class HuntAndKill {
   }
 
   private boolean complete() {
-    for (int i = 1; i < maze.length; i += 2) {
-      for (int j = 1; j < maze[0].length; j += 2) {
+    for (int i = 1; i < height; i += 2) {
+      for (int j = 1; j < width; j += 2) {
         if (maze[i][j] != 0) {
           return false;
         }
@@ -109,8 +110,8 @@ public class HuntAndKill {
   }
 
   private int[][] findCoord() throws Exception {
-    for (int i = 1; i < maze.length; i += 2) {
-      for (int j = 1; j < maze[0].length; j += 2) {
+    for (int i = 1; i < height; i += 2) {
+      for (int j = 1; j < width; j += 2) {
         if (maze[i][j] == 1) {
           ArrayList<int[]> n = neighborsAB(i, j);
 
