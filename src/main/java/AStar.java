@@ -9,7 +9,7 @@ import java.util.Set;
 public class AStar {
 
     private static int DEFAULT_HV_COST = 10; // Horizontal - Vertical Cost
-    private static int DEFAULT_DIAGONAL_COST = 14;
+    // private static int DEFAULT_DIAGONAL_COST = 14;
 
     private int hvCost;
     // private int diagonalCost;
@@ -109,8 +109,8 @@ public class AStar {
                 boolean changed = adjacentNode.checkBetterPath(currentNode, cost);
                 if (changed) {
                     // Remove and Add the changed node, so that the
-                    // PriorityQueue can sort again its contents with the modified
-                    // "finalCost" value of the modified node
+                    // PriorityQueue can sort again its contents with the
+                    // modified "finalCost" value of the modified node
                     openList.remove(adjacentNode);
                     openList.add(adjacentNode);
                 }
@@ -129,12 +129,11 @@ public class AStar {
         int col = currentNode.getCol();
         int lowerRow = row + 1;
         if (lowerRow < searchArea.length) {
+            // Uncomment this if diagonal movements are allowed
             // if (col - 1 >= 0) {
-            // // Comment this if diagonal movements are not allowed
             // checkNode(currentNode, col - 1, lowerRow, diagonalCost);
             // }
             // if (col + 1 <= searchArea[0].length) {
-            // // Comment this if diagonal movements are not allowed
             // checkNode(currentNode, col + 1, lowerRow, diagonalCost);
             // }
             checkNode(currentNode, col, lowerRow, hvCost);
@@ -158,12 +157,11 @@ public class AStar {
         int col = currentNode.getCol();
         int upperRow = row - 1;
         if (upperRow >= 0) {
+            // Uncomment this if diagonal movements are allowed
             // if (col - 1 >= 0) {
-            // // Comment this if diagonal movements are not allowed
             // checkNode(currentNode, col - 1, upperRow, diagonalCost);
             // }
             // if (col + 1 < searchArea[0].length) {
-            // // Comment this if diagonal movements are not allowed
             // checkNode(currentNode, col + 1, upperRow, diagonalCost);
             // }
             checkNode(currentNode, col, upperRow, hvCost);
