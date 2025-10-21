@@ -14,38 +14,38 @@ public class HuntAndKill {
     width++;
     height++;
 
-    this.maze = new int[height][width];
+    maze = new int[height][width];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        this.maze[i][j] = 1;
+        maze[i][j] = 1;
       }
     }
 
     // Opening at top - start of maze
-    this.maze[0][1] = 0;
-    this.maze[1][1] = 0;
+    maze[0][1] = 0;
+    maze[1][1] = 0;
 
     int[] on = {1, 1};
 
-    while (!this.complete()) {
-      ArrayList<int[]> n = this.neighbors(on[0], on[1]);
+    while (!complete()) {
+      ArrayList<int[]> n = neighbors(on[0], on[1]);
       if (n.size() == 0) {
-        int[][] t = this.findCoord();
+        int[][] t = findCoord();
         on = t[0];
 
-        this.maze[on[0]][on[1]] = 0;
-        this.maze[(on[0] + t[1][0]) / 2][(on[1] + t[1][1]) / 2] = 0;
+        maze[on[0]][on[1]] = 0;
+        maze[(on[0] + t[1][0]) / 2][(on[1] + t[1][1]) / 2] = 0;
       } else {
         int i = (int) Math.floor(Math.random() * n.size());
         int[] nb = n.get(i);
-        this.maze[nb[0]][nb[1]] = 0;
-        this.maze[(nb[0] + on[0]) / 2][(nb[1] + on[1]) / 2] = 0;
+        maze[nb[0]][nb[1]] = 0;
+        maze[(nb[0] + on[0]) / 2][(nb[1] + on[1]) / 2] = 0;
 
         on = nb.clone();
       }
     }
 
-    this.maze[height - 2][width - 1] = 0;
+    maze[height - 2][width - 1] = 0;
   }
 
   private ArrayList<int[]> neighbors(int ic, int jc) {
@@ -60,12 +60,12 @@ public class HuntAndKill {
       int value = Math.floorDiv(i, 2) * 2;
       n[i % 2] += value != 0 ? value: -2;
       if (
-          n[0] < this.maze.length &&
-          n[1] < this.maze[0].length &&
+          n[0] < maze.length &&
+          n[1] < maze[0].length &&
           n[0] > 0 &&
           n[1] > 0
       ) {
-        if (this.maze[n[0]][n[1]] == 1) {
+        if (maze[n[0]][n[1]] == 1) {
           final_value.add(n);
         }
       }
@@ -85,8 +85,8 @@ public class HuntAndKill {
       int value = Math.floorDiv(i, 2) * 2;
       n[i % 2] += value != 0 ? value: -2;
       if (
-          n[0] < this.maze.length &&
-          n[1] < this.maze[0].length &&
+          n[0] < maze.length &&
+          n[1] < maze[0].length &&
           n[0] > 0 &&
           n[1] > 0
       )
@@ -98,9 +98,9 @@ public class HuntAndKill {
   }
 
   private boolean complete() {
-    for (int i = 1; i < this.maze.length; i += 2) {
-      for (int j = 1; j < this.maze[0].length; j += 2) {
-        if (this.maze[i][j] != 0) {
+    for (int i = 1; i < maze.length; i += 2) {
+      for (int j = 1; j < maze[0].length; j += 2) {
+        if (maze[i][j] != 0) {
           return false;
         }
       }
@@ -109,14 +109,14 @@ public class HuntAndKill {
   }
 
   private int[][] findCoord() throws Exception {
-    for (int i = 1; i < this.maze.length; i += 2) {
-      for (int j = 1; j < this.maze[0].length; j += 2) {
-        if (this.maze[i][j] == 1) {
-          ArrayList<int[]> n = this.neighborsAB(i, j);
+    for (int i = 1; i < maze.length; i += 2) {
+      for (int j = 1; j < maze[0].length; j += 2) {
+        if (maze[i][j] == 1) {
+          ArrayList<int[]> n = neighborsAB(i, j);
 
           for (int k = 0; k < n.size(); k++) {
             int[] idx = n.get(k);
-            if (this.maze[idx[0]][idx[1]] == 0) {
+            if (maze[idx[0]][idx[1]] == 0) {
               return new int[][] {{i, j}, idx};
             }
           }
@@ -129,7 +129,7 @@ public class HuntAndKill {
   @Override
   public String toString() {
     String string = new String();
-    for (int[] rows : this.maze) {
+    for (int[] rows : maze) {
       string += "\n" + Arrays.toString(rows);
     }
     return string.substring(1);
