@@ -63,7 +63,7 @@ public class AStar {
         while (!isEmpty(openList)) {
             Node currentNode = openList.poll();
             closedSet.add(currentNode);
-            if (currentNode == target) {
+            if (currentNode.equals(target)) {
                 return getPath(currentNode);
             } else {
                 addAdjacentNodes(currentNode);
